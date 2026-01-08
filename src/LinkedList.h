@@ -42,7 +42,37 @@ typedef struct Node { int value;
 
 
 //Initialize Linked List from array of elements
-static inline struct Node* initList (const int*  array, size_t size);
+static inline struct Node* initList (const int*  array, size_t size)
+{
+    if (size == 0)
+        return NULL;
+
+    struct Node* head = malloc(sizeof(*head));
+    head->value = array[0];
+    head->next = NULL;
+
+    for (size_t idx = 1; idx < size; ++idx)
+    {
+        InsertAtEnd(&head, array[idx]);
+    }
+
+    return head;
+}
+
+//Destruction function for memory management
+static inline void destroyList (Node** head)
+{
+    Node* curr = *head;
+
+    while (curr != NULL) 
+    {
+        Node* next = curr->next;
+        free(curr);
+        curr = next;
+    }
+
+    *head = NULL;
+}
 
 //Insertion Functions:q
 static inline void InsertAtBeginning (Node** head, int val)
