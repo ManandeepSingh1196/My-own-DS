@@ -12,15 +12,17 @@
 
 #include<stddef.h>
 #include<stdlib.h>
-#endif
 
 
 //Modes
-typedef enum InsertMode { INSERT_BY_VALUE, INSERT_BY_POSITION;
+typedef enum InsertMode { 
+    INSERT_BY_VALUE,
+    INSERT_BY_POSITION
 } InsertMode;
 
 typedef enum DeleteMode {
-	DELETE_BY_VALUE, DELETE_BY_POSITION
+	DELETE_BY_VALUE,
+    DELETE_BY_POSITION
 } DeleteMode;
 
 
@@ -41,40 +43,7 @@ typedef struct Node { int value;
 */
 
 
-//Initialize Linked List from array of elements
-static inline struct Node* initList (const int*  array, size_t size)
-{
-    if (size == 0)
-        return NULL;
-
-    struct Node* head = malloc(sizeof(*head));
-    head->value = array[0];
-    head->next = NULL;
-
-    for (size_t idx = 1; idx < size; ++idx)
-    {
-        InsertAtEnd(&head, array[idx]);
-    }
-
-    return head;
-}
-
-//Destruction function for memory management
-static inline void destroyList (Node** head)
-{
-    Node* curr = *head;
-
-    while (curr != NULL) 
-    {
-        Node* next = curr->next;
-        free(curr);
-        curr = next;
-    }
-
-    *head = NULL;
-}
-
-//Insertion Functions:q
+//Insertion Functions
 static inline void InsertAtBeginning (Node** head, int val)
 {
     //edge test
@@ -85,7 +54,6 @@ static inline void InsertAtBeginning (Node** head, int val)
 	newNode->next = *head;
 	*head = newNode;
 }
-
 
 static inline void InsertAtEnd (Node** head, int val)
 {
@@ -124,8 +92,8 @@ static inline void DeleteAtEnd (Node** head)
 	struct Node* temp = iter->next;
 	iter->next = NULL;
 	free(temp);
-
 }
+
 
 //Function to perform insertion at both position or at value
 static inline void InsertAtPosition(Node** head, int n, InsertMode mode)
@@ -148,7 +116,6 @@ static inline void InsertAtPosition(Node** head, int n, InsertMode mode)
             iter = iter->next;
             idx++;
         }
-
         newNode->next = iter->next;
         iter->next = newNode;
     }
@@ -165,6 +132,7 @@ static inline void InsertAtPosition(Node** head, int n, InsertMode mode)
         iter->next = newNode;
     }
 }
+
 
 //Function to perform deletion at both position or at value
 static inline void DeleteAtPosition (Node** head, int n, DeleteMode mode)
@@ -189,11 +157,11 @@ static inline void DeleteAtPosition (Node** head, int n, DeleteMode mode)
         
         struct Node* temp = iter->next;
         iter->next = temp->next;
-        free(temp);
+        free(temp); 
     }
-    else if (mode == DELETE_BY_VALUE)        
-    {
-       
+    
+    else if (mode == DELETE_BY_VALUE)
+    {   
         struct Node* iter = *head;
         struct Node* prev;
 
@@ -207,8 +175,41 @@ static inline void DeleteAtPosition (Node** head, int n, DeleteMode mode)
         }
 
         prev->next = iter->next;
-        free(iter);
+        free(iter); 
     }
 }
 
+//Initialize Linked List from array of elements
+static inline struct Node* initList (const int*  array, size_t size)
+{
+    if (size == 0)
+        return NULL;
 
+    struct Node* head = malloc(sizeof(*head));
+    head->value = array[0];
+    head->next = NULL;
+
+    for (size_t idx = 1; idx < size; ++idx)
+    {
+        InsertAtEnd(&head, array[idx]);
+    }
+
+    return head;
+}
+
+//Destruction function for memory management
+static inline void destroyList (Node** head)
+{
+    Node* curr = *head;
+
+    while (curr != NULL) 
+    {
+        Node* next = curr->next;
+        free(curr);
+        curr = next;
+    }
+
+    *head = NULL;
+}
+
+#endif
