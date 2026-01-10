@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "LinkedList.h"
-#include "Stack.h"
-#include "Queue.h"
+#include "linked_list.h"
+#include "stack.h"
+#include "queue.h"
 
 int main ()
 {
