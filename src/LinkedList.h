@@ -1,14 +1,13 @@
-//Unsorted Linked List
-//
+//Unsorted Linked List //
 //
 //TODO:
 //1. Allocation Failure Handling
-//2. Change all mallocs to newNode instead of struct Node
-//3. Remove all explicit typecasts
+//
+//
 
 
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
 
 #include<stddef.h>
 #include<stdlib.h>
@@ -27,7 +26,9 @@ typedef enum DeleteMode {
 
 
 //Node
-typedef struct Node { int value;
+typedef struct Node 
+{ 
+    int value;
 	struct Node* next;
 } Node;
 
@@ -48,7 +49,7 @@ static inline void InsertAtBeginning (Node** head, int val)
 {
     //edge test
 
-	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	struct Node* newNode = malloc(sizeof *newNode);
 	newNode->value = val;
 
 	newNode->next = *head;
@@ -63,7 +64,7 @@ static inline void InsertAtEnd (Node** head, int val)
 	while (iter->next != NULL)
 		iter = iter->next;
 	
-	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	struct Node* newNode = malloc(sizeof *newNode);
 	newNode->value = val;
 	newNode->next = NULL;
 	iter->next = newNode;
@@ -98,7 +99,7 @@ static inline void DeleteAtEnd (Node** head)
 //Function to perform insertion at both position or at value
 static inline void InsertAtPosition(Node** head, int n, InsertMode mode)
 {
-    struct Node* newNode = malloc(sizeof(struct Node));
+    struct Node* newNode = malloc(sizeof *newNode);
     newNode->next = NULL;
 
     if (mode == INSERT_BY_POSITION)
@@ -185,7 +186,7 @@ static inline struct Node* initList (const int*  array, size_t size)
     if (size == 0)
         return NULL;
 
-    struct Node* head = malloc(sizeof(*head));
+    struct Node* head = malloc(sizeof *head);
     head->value = array[0];
     head->next = NULL;
 
