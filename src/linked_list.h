@@ -1,8 +1,8 @@
-//Unsorted Linked List //
+//Unsorted Linked List 
 //
 //TODO:
 //1. Allocation Failure Handling
-//
+//2. Refactor functions for maintaining and working on linkedList struct
 //
 
 
@@ -11,6 +11,12 @@
 
 #include<stddef.h>
 #include<stdlib.h>
+
+
+typedef struct linkedList {
+    struct Node* head;
+    size_t size;
+} linkedList;
 
 
 //Modes
@@ -26,8 +32,7 @@ typedef enum DeleteMode {
 
 
 //Node
-typedef struct Node 
-{ 
+typedef struct Node { 
     int value;
 	struct Node* next;
 } Node;
@@ -72,7 +77,7 @@ static inline void InsertAtEnd (Node** head, int val)
 
 
 //Deletion Functions
-static inline void DeleteAtBegininning (Node** head)
+static inline void DeleteAtBeginning (Node** head)
 {
     //edge test
 
@@ -120,6 +125,7 @@ static inline void InsertAtPosition(Node** head, int n, InsertMode mode)
         newNode->next = iter->next;
         iter->next = newNode;
     }
+
     else if (mode == INSERT_BY_VALUE)
     {
         struct Node* iter = *head;
