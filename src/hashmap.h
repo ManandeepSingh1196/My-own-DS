@@ -1,3 +1,5 @@
+// Needed a hashmap for another project of mine so here goes
+
 #ifndef HASHMAP_H
 #define HASHMAP_H
 
