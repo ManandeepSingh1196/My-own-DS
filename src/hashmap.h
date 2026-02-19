@@ -11,7 +11,7 @@
 #define INITIAL_CAPACITY 16
 
 // -------------- NECESSARY DATA STRUCTURES ----------------
-typedef struct state {
+typedef enum state{
     EMPTY,
     OCCUPIED,
     DEAD
